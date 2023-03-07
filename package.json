@@ -1,0 +1,27 @@
+{
+  "name": "mathpang-sdk",
+  "version": "0.1.0",
+  "description": "SDK for Mathpang",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mathpang/sdk.git"
+  },
+  "keywords": [],
+  "author": "Mathpang Developers",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mathpang/sdk/issues"
+  },
+  "homepage": "https://github.com/mathpang/sdk#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "ts-jest": "^29.0.5",
+    "typescript": "^4.9.5"
+  }
+}
