@@ -1,3 +1,3 @@
-function delay(ms: number) {
+export function delay(ms: number) {
   return new Promise<void>((resolve) => setTimeout(resolve, ms));
 }

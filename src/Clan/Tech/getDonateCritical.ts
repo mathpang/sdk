@@ -3,7 +3,7 @@ import { MathUtil } from "../../Util/Math";
 // https://www.notion.so/mathpang/1b91c638fe47402b906653fb6e160da4
 export function getDonateCritical(userId: number, totalDonateAmount: number) {
   const seed = MathUtil.sliceUnderPoint(
-    Math.log(userId * totalDonateAmount),
+    Math.log(userId * totalDonateAmount + totalDonateAmount ** 2),
     9,
     10
   );
