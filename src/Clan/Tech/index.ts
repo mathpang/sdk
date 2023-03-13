@@ -1,5 +1,5 @@
 import { getDonateCritical } from "./getDonateCritical";
-import { getLevelAndRestTechPoint } from "./getLevel";
+import { getLevelAndRestTechPoint } from "./getLevelAndRestTechPoint";
 
 export const ClanTech = {
   /**
