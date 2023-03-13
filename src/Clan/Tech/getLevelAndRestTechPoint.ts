@@ -40,7 +40,7 @@ export function getLevelAndRestTechPoint({
       break;
     }
 
-    // restTechPoint >= maxPoint이기 때문에 level을 1 올리고 restTechPoint를 현제 maxPoint만큼 줄인다
+    // restTechPoint >= maxPoint이기 때문에 level을 1 올리고 restTechPoint를 현재 maxPoint만큼 줄인다
     level += 1;
     restTechPoint -= maxPoint;
   }
