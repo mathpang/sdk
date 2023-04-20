@@ -1,29 +1,75 @@
-// 일반공격 DPS = {(공격력) * (1 - 크리티컬 확률) + (공격력) * (크리티컬 공격력) * (크리티컬 확률)} * (초당 클릭 횟수 = 6)
-// 스킬 DPS = (1스킬 스킬계수) * (공격력) / (1스킬 쿨타임)
-// DPS = (일반공격 DPS + 스킬 DPS) * (1 + 2스킬 버프)
-// 스킬 결합 체력 = (체력) / (1 - 1스킬 쉴드율)
-// 힐량 환산 DPS보너스 = (1스킬 힐량) * 체력 / (1스킬 쿨타임)
-// (Jelly Power) = sqrt((DPS + 힐량 환산 DPS보너스) * (스킬 결합 체력 + 5 * 회복속도))
+/** 초당 클릭 횟수 */
+const CLICK_PER_SECOND = 6;
 
-export function calculateJellyPower({
-  attackPoint,
-  staminaPoint,
-  healthPoint,
-  criticalChance,
-  criticalDamage,
+/**
+ * @description 젤리 파워 계산하는 함수
+ * @see https://www.notion.so/mathpang/ac430f37beb949a7bf0a5e492207c84f?pvs=4#78385c7ae89046faa92a6ce2bc49d7ec
+ */
+export const getJellyPower = ({
+  defaultAttackStat,
+  defaultCriticalChance,
+  defaultCriticalDamage,
+  defaultHpStat,
+  defaultRecoveryStat,
+  attackPercentage,
+  hpPercentage,
+  recoveryPercentage,
 }: {
-  attackPoint: number;
-  staminaPoint: number;
-  healthPoint: number;
-  criticalChance: number;
-  criticalDamage: number;
-}) {
-  const normalAttackDps =
-    (attackPoint * (1 - criticalChance) +
-      attackPoint * criticalDamage * criticalChance) *
-    6;
+  /** 젤리 기본 공격력 */
+  defaultAttackStat: number;
 
-  const dps = normalAttackDps; // TODO: add skill dps
-  const cp = Math.sqrt((dps + 0) * (healthPoint + 5 * staminaPoint));
-  return Math.ceil(cp);
-}
+  /** 젤리 기본 회복속도 */
+  defaultRecoveryStat: number;
+
+  /** 젤리 기본 체력 */
+  defaultHpStat: number;
+
+  /** 젤리 기본 크리티컬 확률 */
+  defaultCriticalChance: number;
+
+  /** 젤리 기본 크리티컬 공격력 */
+  defaultCriticalDamage: number;
+
+  /** 레벨 당 공격 배수 */
+  attackPercentage: number;
+
+  /** 레벨 당 체력 배수 */
+  hpPercentage: number;
+
+  /** 레벨 당 회복 배수 */
+  recoveryPercentage: number;
+}) => {
+  /** 공격력 */
+  const attackPower = defaultAttackStat * (attackPercentage / 100);
+
+  /** 회복속도 */
+  const recoveryPower = defaultRecoveryStat * (recoveryPercentage / 100);
+
+  /** 체력 */
+  const hpPower = defaultHpStat * (hpPercentage / 100);
+
+  /** 크리티컬 확률 */
+  const criticalChance = defaultCriticalChance / 100;
+
+  /** 크리티컬 공격력 */
+  const criticalDamage = defaultCriticalDamage;
+
+  /** 기본 공격 DPS */
+  const commonAttackDPS =
+    (attackPower * (1 - criticalChance) +
+      attackPower * criticalDamage * criticalChance) *
+    CLICK_PER_SECOND;
+
+  /** DPS */
+  const dps = commonAttackDPS;
+
+  /** 스킬 결합 체력 */
+  const skillCombinedHealth = hpPower;
+
+  /** 젤리 파워 */
+  const jellyPower = Math.floor(
+    Math.sqrt(dps * (skillCombinedHealth + 5 * recoveryPower))
+  );
+
+  return jellyPower;
+};
