@@ -1,13 +1,12 @@
 {
   "name": "mathpang-sdk",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "SDK for Mathpang",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
-    "publish": "yarn build && npm login && npm publish"
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
