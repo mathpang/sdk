@@ -41,6 +41,7 @@ export const getJellyPower = ({
   defaultRecoveryStat,
   levelMultiplier,
   classEffectMultiplier = {},
+  skillMultiplier = {},
 }: {
   /** 젤리 기본 공격력 */
   defaultAttackStat: number;
@@ -62,11 +63,15 @@ export const getJellyPower = ({
 
   /** 젤리 직업 효과 배수 */
   classEffectMultiplier?: StatMultiplier;
+
+  /** 젤리 스킬 효과 배수 */
+  skillMultiplier?: StatMultiplier;
 }) => {
   /** 배수 효과 합친 것 */
   const mergedMultiplier = mergeMultipliers([
     levelMultiplier,
     classEffectMultiplier,
+    skillMultiplier,
   ]);
 
   /** 공격력 */
