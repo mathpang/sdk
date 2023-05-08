@@ -42,6 +42,9 @@ export const getJellyPower = ({
   levelMultiplier,
   classEffectMultiplier = {},
   skillMultiplier = {},
+  skillDpsMultiplier = 1,
+  healDpsMultiplier = 1,
+  shieldSkillMultiplier = 0,
 }: {
   /** 젤리 기본 공격력 */
   defaultAttackStat: number;
@@ -66,6 +69,24 @@ export const getJellyPower = ({
 
   /** 젤리 스킬 효과 배수 */
   skillMultiplier?: StatMultiplier;
+
+  /**
+   * 스킬 공격력 배수
+   * = (1스킬 공격 스킬계수) * (닌자 젤리 효과) / (1스킬 쿨타임)
+   */
+  skillDpsMultiplier?: number;
+
+  /**
+   * 힐 배수
+   * = (1스킬 힐비율) / (1스킬 쿨타임)
+   */
+  healDpsMultiplier?: number;
+
+  /**
+   * 1스킬 쉴드율
+   * = (방어막 형성 시간) / (1스킬 쿨타임)
+   */
+  shieldSkillMultiplier?: number;
 }) => {
   /** 배수 효과 합친 것 */
   const mergedMultiplier = mergeMultipliers([
@@ -96,11 +117,17 @@ export const getJellyPower = ({
       attackPower * criticalDamage * criticalChance) *
     CLICK_PER_SECOND;
 
+  /** 스킬 DPS */
+  const skillDPS = skillDpsMultiplier * attackPower;
+
+  /** 힐량 환산 DPS보너스 */
+  const healDPS = healDpsMultiplier * hpPower;
+
   /** DPS */
-  const dps = commonAttackDPS;
+  const dps = commonAttackDPS + skillDPS + healDPS;
 
   /** 스킬 결합 체력 */
-  const skillCombinedHealth = hpPower;
+  const skillCombinedHealth = hpPower / (1 - shieldSkillMultiplier);
 
   /** 젤리 파워 */
   const jellyPower = Math.floor(
