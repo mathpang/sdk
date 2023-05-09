@@ -112,7 +112,7 @@ export const getJellyPower = ({
   const criticalChance = defaultCriticalChance / 100;
 
   /** 크리티컬 공격력 */
-  const criticalDamage = 1 - defaultCriticalDamage;
+  const criticalDamage = defaultCriticalDamage;
 
   /** 기본 공격 DPS */
   const commonAttackDPS =
