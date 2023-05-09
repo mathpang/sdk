@@ -45,6 +45,7 @@ export const getJellyPower = ({
   skillDpsMultiplier = 1,
   healDpsMultiplier = 1,
   shieldSkillMultiplier = 0,
+  additionalAttackByType = 0,
 }: {
   /** 젤리 기본 공격력 */
   defaultAttackStat: number;
@@ -87,6 +88,9 @@ export const getJellyPower = ({
    * = (방어막 형성 시간) / (1스킬 쿨타임)
    */
   shieldSkillMultiplier?: number;
+
+  /** 2스킬에 의한 상성 추가 공격력 */
+  additionalAttackByType?: number;
 }) => {
   /** 배수 효과 합친 것 */
   const mergedMultiplier = mergeMultipliers([
@@ -105,8 +109,7 @@ export const getJellyPower = ({
   const hpPower = defaultHpStat * mergedMultiplier.healthPoint;
 
   /** 크리티컬 확률 */
-  const criticalChance =
-    (defaultCriticalChance / 100) * mergedMultiplier.criticalChance;
+  const criticalChance = defaultCriticalChance / 100;
 
   /** 크리티컬 공격력 */
   const criticalDamage = 1 - defaultCriticalDamage;
@@ -124,7 +127,10 @@ export const getJellyPower = ({
   const healDPS = healDpsMultiplier * hpPower;
 
   /** DPS */
-  const dps = commonAttackDPS + skillDPS + healDPS;
+  const dps =
+    (1 + (additionalAttackByType || 0) / 5 || 1) *
+      (commonAttackDPS + skillDPS) +
+    healDPS;
 
   /** 스킬 결합 체력 */
   const skillCombinedHealth = hpPower / (1 - shieldSkillMultiplier);
