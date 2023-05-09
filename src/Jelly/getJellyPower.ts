@@ -128,7 +128,7 @@ export const getJellyPower = ({
 
   /** DPS */
   const dps =
-    (1 + (additionalAttackByType || 0) / 5 || 1) *
+    (1 + (additionalAttackByType || 0) / 500 || 1) *
       (commonAttackDPS + skillDPS) +
     healDPS;
 
