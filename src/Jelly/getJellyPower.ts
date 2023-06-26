@@ -1,5 +1,5 @@
 /** 초당 클릭 횟수 */
-const CLICK_PER_SECOND = 6;
+const CLICK_PER_SECOND = 3;
 
 export interface CharacterJellyStat {
   /** 젤리파워 */
