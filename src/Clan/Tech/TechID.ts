@@ -6,4 +6,9 @@ export type TechID =
   | "RESEARCH_LAB"
   | "RESEARCH_FACTORY"
   | "RESEARCH_ROAD"
-  | "PET_LOVER";
+  | "PET_LOVER"
+  | "LUCKY_COIN"
+  | "BROKEN_CLOCK"
+  | "ADVANCED_BOARD"
+  | "FOUR_LEAF_CLOVER"
+  | "GRATE_CLAN";
