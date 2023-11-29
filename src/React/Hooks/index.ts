@@ -23,7 +23,7 @@ export const ReactHooks = {
    * @example
    * ```
    * const [fireQuery, { data }] = useReducedQuery({
-   *  fireQuery: (v) => fetch("/api/buy-items", { method: "POST", body: JSON.stringify(v) }),
+   *  fireQuery: (v: { quantity: number }) => fetch("/api/buy-items", { method: "POST", body: JSON.stringify(v) }),
    *  delay: 500,
    *  reduceVariables: (v) => ({
    *    quantity: v.quantity + 1,
